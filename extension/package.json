@@ -1,0 +1,151 @@
+{
+    "name": "simpllm",
+    "displayName": "SimpLLM",
+    "description": "Intelligent AI model routing for GitHub Copilot — maximizes developer productivity per credit",
+    "version": "1.0.0",
+    "publisher": "simpllm",
+    "engines": {
+        "vscode": "^1.93.0"
+    },
+    "categories": [
+        "AI",
+        "Chat",
+        "Machine Learning"
+    ],
+    "extensionDependencies": [
+        "github.copilot-chat"
+    ],
+    "activationEvents": [],
+    "main": "./dist/extension.js",
+    "contributes": {
+        "chatParticipants": [
+            {
+                "id": "simpllm.router",
+                "fullName": "SimpLLM Router",
+                "name": "simpllm",
+                "description": "AI assistant with intelligent model routing for credit optimization",
+                "isSticky": true,
+                "commands": [
+                    {
+                        "name": "stats",
+                        "description": "Show detailed usage statistics"
+                    },
+                    {
+                        "name": "budget",
+                        "description": "Show credit budget status"
+                    }
+                ]
+            }
+        ],
+        "commands": [
+            {
+                "command": "simpllm.setTier",
+                "title": "SimpLLM: Select Model"
+            },
+            {
+                "command": "simpllm.showStats",
+                "title": "SimpLLM: Show Statistics"
+            },
+            {
+                "command": "simpllm.openAdmin",
+                "title": "SimpLLM: Open Admin Panel"
+            },
+            {
+                "command": "simpllm.retryWithModel",
+                "title": "SimpLLM: Retry with Different Model"
+            },
+            {
+                "command": "simpllm.requestCredits",
+                "title": "SimpLLM: Request Extra Credits"
+            },
+            {
+                "command": "simpllm.feedbackPositive",
+                "title": "SimpLLM: Positive Feedback"
+            },
+            {
+                "command": "simpllm.feedbackNegative",
+                "title": "SimpLLM: Negative Feedback"
+            }
+        ],
+        "configuration": {
+            "title": "SimpLLM",
+            "properties": {
+                "simpllm.enabled": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable SimpLLM intelligent routing"
+                },
+                "simpllm.showModelInfo": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Show model and credit info in chat responses"
+                },
+                "simpllm.classifierModel": {
+                    "type": "string",
+                    "default": "gpt-4o",
+                    "markdownDescription": "Model used for prompt classification (first pass). Choose a **free model** (0x credit) for zero-cost classification.\n\nAvailable: `gpt-4o`, `gpt-4.1`, `gpt-5-mini`"
+                },
+                "simpllm.taskRouting": {
+                    "type": "object",
+                    "default": {},
+                    "markdownDescription": "Override which model handles each task type.\n\nExample: `{\"test\": \"claude-sonnet-4.5\", \"security\": \"claude-opus-4.5\"}`"
+                },
+                "simpllm.maxCreditTier": {
+                    "type": "string",
+                    "enum": [
+                        "free",
+                        "cheap",
+                        "standard",
+                        "premium"
+                    ],
+                    "default": "premium",
+                    "markdownDescription": "Maximum credit tier allowed.\n- `free` = 0x only\n- `cheap` = up to 0.33x\n- `standard` = up to 1x\n- `premium` = all (3x)"
+                },
+                "simpllm.blockedModels": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [],
+                    "description": "Model IDs to block (e.g. claude-opus-4.5)"
+                },
+                "simpllm.monthlyBudget": {
+                    "type": "number",
+                    "default": 300,
+                    "description": "Monthly credit budget per user"
+                },
+                "simpllm.collectFeedback": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Show feedback buttons (👍👎) after responses"
+                },
+                "simpllm.feedbackEndpoint": {
+                    "type": "string",
+                    "default": "",
+                    "description": "URL to POST feedback and credit requests for centralized analytics"
+                },
+                "simpllm.teamId": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Team identifier for analytics"
+                },
+                "simpllm.departmentId": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Department identifier for analytics"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "package": "vsce package"
+    },
+    "devDependencies": {
+        "@types/node": "^20.10.0",
+        "@types/vscode": "^1.93.0",
+        "typescript": "^5.3.0"
+    }
+}
