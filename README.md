@@ -1,3 +1,5 @@
+![SimpLLM - Intelligent AI Model Routing for GitHub Copilot Enterprise](brochure.png)
+
 # ⚡ SimpLLM — Intelligent AI Model Router for GitHub Copilot
 
 **SimpLLM** automatically selects the optimal AI model for each task in GitHub Copilot, maximizing developer productivity while minimizing credit consumption.
